@@ -10,38 +10,51 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*; // Импортируем классы библиотеки assertJ
 
 public class Main {
-    public static void main(String[] args) {
-        // Проверьте, как работают методы:
 
+    // Типы ошибок. Синтаксические
+//    public static void main(String[] args) {
+//        System.out.println("Hello world!")
+//    }
+
+    // Типы ошибок. ?
+//    public static void main(String[] args) {
+//        compareNumbers(2, 2); // Вызывается метод сравнения двух чисел
+//    }
+//    private static void compareNumbers(int a, int b) {
+//        if (a > b) {
+//            System.out.printf("%d more than %d", a, b);
+//        }
+//        if (a <= b) {  // Допущена ошибка -знак <= вместо <
+//            System.out.printf("%d less than %d", a, b);
+//        }
+//    }
+
+    // Типы ошибок. ?
+//  public static void main(String[] args) {
+//      int a = 10, b = 0;
+//      System.out.printf("Result: %d", a / b);
+//  }
+
+    public static void main(String[] args) {
         // assertConditionA();
 
         // assertConditionB();
 
-        // System.out.println(sum(2_147_483_647, 1));
+        // System.out.println(sum(2_147_483_647, 2));
 
         // happyNY();
 
         // expectedValue();
 
-        // checkingShoppingCart()
+        // checkingShoppingCart();
 
-        /*
-                assertThat(colors)
-                        .isNotEmpty()             // Массив не должен быть пустым
-                        .hasSize(7)               // Размер массива должен быть равен 7
-                        .doesNotHaveDuplicates()  // Массив не должен содержать повторяющихся элементов
-                        .contains("orange", "green", "violet") // Массив должен содержать цвета: "orange", "green", "violet"
-                        .endsWith("gold")        //  Последним цветом в массиве должен быть "gold"
-                        .startsWith("aqua")     // Первым цветом в массиве должен быть "aqua"
-                        .containsSequence("yellow", "blue") // В массиве должна быть последовательность цветов "yellow", "blue"
-                        .doesNotContain("red", "black");    //Массив не должен содержать цвета: "red", "black"
-        */
+        // String[] colors = {"...", "...",};
 
-        //  String[] colors = {};
+        // testingJavaCollectionsAssertJ(colors);
 
-        //  testingJavaCollectionsAssertJ(colors);
-
-        //  checkingHero();
+        // List<String> heroBag = Arrays.asList("Bow", "Axe", "Gold");
+        // Hero emmett = new Hero("Emmett", 50, "sword", heroBag, true);
+        // checkingCreationOfHero(emmett);
     }
 
     //                  Практические задания:
@@ -63,6 +76,7 @@ public class Main {
     // Ariane V - https://habr.com/ru/company/pvs-studio/blog/306748/
     // sum(2_147_483_647, 1) возвращает "-2147483648"
     public static int sum(int a, int b) {
+        assert (Integer.MAX_VALUE - a >= b) : "Значение выражения вышло за пределы переменной";
         return a + b;
     }
 
@@ -74,7 +88,9 @@ public class Main {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String currentDateTime = dateFormat.format(calendar.getTime());
 
-        assert currentDateTime.equals("01/01/2023 00:00:00") : "Еще 2023 год :(";
+        // Получили строку currentDateTime в формате "09/12/2022 20:20:04"
+
+        assert currentDateTime.equals("01/01/2023 00:00:00") : "Еще 2022 год :(";
         System.out.println("С новым годом!");
     }
 
@@ -108,8 +124,8 @@ public class Main {
 
     // 1.6
     //   AssertJ
-    // ok - assertThat(actual/фактическое).isEqualTo(expected/ожидаемое);
-    // not ok - assertThat(expected/ожидаемое).isEqualTo(actual/фактическое);
+    // ok - assertThat(actual).isEqualTo(expected);
+    // not ok - assertThat("expected").isEqualTo("actual");
     public static void expectedValue() {
         assertThat(5).isEqualTo(sum(2, 3));
     }
@@ -117,21 +133,21 @@ public class Main {
     // 1.7
     public static void testingJavaCollectionsAssertJ(String[] colors) {
         assertThat(colors)
-                .isNotEmpty()             // Массив не должен быть пустым
-                .hasSize(7)      // Размер массива должен быть равен 7
-                .doesNotHaveDuplicates() // Массив не должен содержать повторяющихся элементов
-                .contains("orange", "green", "violet") // Массив должен содержать цвета: "orange", "green", "violet"
-                .endsWith("gold")   //  Последним цветом в массиве должен быть "gold"
-                .startsWith("aqua")     // Первым цветом в массиве должен быть "aqua"
-                .containsSequence("yellow", "blue")      // В массиве должна быть последовательность цветов "yellow", "blue"
-                .doesNotContain("red", "black"); //Массив не должен содержать цвета: "red", "black"
+                .isNotEmpty()
+                .hasSize(7)
+                .doesNotHaveDuplicates()
+                .contains("orange", "green", "violet")
+                .endsWith("gold")
+                .startsWith("aqua")
+                .containsSequence("yellow", "blue")
+                .doesNotContain("red", "black");
     }
 
     // 1.8
     public static void checkingHero() {
 
-        List<String> heroBag = Arrays.asList("Bow", "Axe", "Gold");
-        Hero emmett = new Hero("Emmett", 50, "sword", heroBag, true);
+        // List<String> heroBag = Arrays.asList("Bow", "Axe", "Gold");
+        // Hero emmett = new Hero("Emmett", 50, "sword", heroBag, true);
 
         /*
         1. Проверить, что герой создался с именем Emmett
@@ -140,13 +156,9 @@ public class Main {
         4. Проверить содержимое инвентаря героя (не пустой, размер 3, содержимое "Bow", "Axe", "Gold", порядок не важен)
         5. Проверить, что герой человек (свойство true)
         */
-
-        // assert "Emmett".equals(emmett.getName()): "Name should be Emmett";
-        // Далее продолжите сами ...
-
     }
 
-    // 1.8 (Черный ящик)
+    // Черный ящик
     static class Hero {
         private String name;
         private int armorStrength;
