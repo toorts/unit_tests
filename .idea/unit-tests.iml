@@ -33,5 +33,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="byte-buddy-1.12.22" level="project" />
+    <orderEntry type="library" name="byte-buddy-agent-1.12.22" level="project" />
   </component>
 </module>
